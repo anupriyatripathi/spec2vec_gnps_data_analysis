@@ -2,7 +2,7 @@ import logging
 import re
 import pubchempy as pcp
 import numpy as np
-from matchms.utils import is_valid_inchikey
+from matchms.metadata_utils import is_valid_inchikey
 
 
 def pubchem_metadata_lookup(spectrum_in, name_search_depth=10, formula_search=False,
@@ -302,7 +302,7 @@ def find_pubchem_mass_match(results_pubchem,
         if smiles_pubchem is None:
             smiles_pubchem = result.canonical_smiles
 
-        pubchem_mass = results_pubchem[0].exact_mass
+        pubchem_mass = np.float(results_pubchem[0].exact_mass)
         match_mass = (np.abs(pubchem_mass - parent_mass) <= mass_tolerance)
 
         if match_mass:
